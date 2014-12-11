@@ -5,10 +5,19 @@ CACHE_DIR=$2
 ENV_DIR=$3
 BUILDPACK_DIR=$(cd $(dirname $0)/.. && pwd)
 
+
 #----->
 indent() {
   sed -u 's/^/       /'
 }
+
+
+echo "-----> Debug:"
+echo "BUILD_DIR=$BUILD_DIR" | indent;
+echo "CACHE_DIR=$CACHE_DIR" | indent;
+echo "ENV_DIR=$ENV_DIR" | indent;
+echo "BUILDPACK_DIR=$BUILDPACK_DIR" | indent;
+
 
 env_var() {
     cat $ENV_DIR/$1 2>/dev/null;
