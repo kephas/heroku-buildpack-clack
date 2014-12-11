@@ -19,6 +19,8 @@ env_var() {
 LISP=$(env_var LISP);
 LISP=${LISP:-sbcl);
 
+echo "-----> Lisp implementation: $LISP"
+
 S3_BUCKET="http://heroku-clack.s3-website-us-west-2.amazonaws.com/"
 SBCL_BINARY="sbcl-1.2.6-x86-64-linux-binary.tar.bz2"
 CCL_BINARY="ccl-1.10-linuxx86.tar.gz"
