@@ -16,7 +16,7 @@ env_var() {
 
 
 LISP=$(env_var LISP);
-LISP=${LISP:-sbcl);
+LISP=${LISP:-sbcl};
 
 echo "-----> Lisp implementation: $LISP"
 
