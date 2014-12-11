@@ -11,5 +11,5 @@ indent() {
 }
 
 
-apt-get install sbcl
+sudo apt-get install sbcl
 
