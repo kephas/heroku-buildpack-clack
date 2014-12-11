@@ -1,0 +1,51 @@
+#!/bin/bash
+set -e
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+BUILDPACK_DIR=$(cd $(dirname $0)/.. && pwd)
+
+#----->
+indent() {
+  sed -u 's/^/       /'
+}
+
+env_var() {
+    cat $ENV_DIR/$1 2>/dev/null;
+}
+
+
+LISP=$(env_var LISP);
+LISP=${LISP:-sbcl);
+
+S3_BUCKET="http://heroku-clack.s3-website-us-west-2.amazonaws.com/"
+SBCL_BINARY="sbcl-1.2.6-x86-64-linux-binary.tar.bz2"
+CCL_BINARY="ccl-1.10-linuxx86.tar.gz"
+ABCL_BINARY="abcl-bin-1.3.1.tar.gz"
+
+
+RUNTINE=$BUILD_DIR/.heroku;
+mkdir $RUNTIME;
+
+TARBALL="",
+case LISP in
+    sbcl)
+	TARBALL=$SBCL_BINARY;;
+    ccl)
+	TARBALL=$CCL_BINARY;;
+    abcl)
+	TARBALL=$ABCL_BINARY;;
+esac
+
+cd $CACHE_DIR;
+curl --silent --fail "$S3_BUCKET$TARBALL";
+
+cd $RUNTIME;
+tar xf $CACHE_DIR/$TARBALL;
+
+cd $BUILDPACK_DIR/lib/;
+cp heroku-$LISP.sh $BUILD_DIR/heroku-web.sh;
+cp Procfile $BUILD_DIR;
+
+exit 1; #Not finised yet
