@@ -42,10 +42,10 @@ esac
 mkdir -p $CACHE_DIR;
 cd $CACHE_DIR;
 if [[ ! -a $TARBALL ]]; then
-    "Install implementation" | indent;
+    echo "Install implementation" | indent;
     curl --silent --fail "$S3_BUCKET$TARBALL";
 else
-    "Implementation already installed" | indent;
+    echo "Implementation already installed" | indent;
 fi
 
 cd $RUNTIME;
