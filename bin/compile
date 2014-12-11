@@ -39,8 +39,14 @@ case LISP in
 	TARBALL=$ABCL_BINARY;;
 esac
 
+mkdir -p $CACHE_DIR;
 cd $CACHE_DIR;
-curl --silent --fail "$S3_BUCKET$TARBALL";
+if [[ ! -a $TARBALL ]]; then
+    "Install implementation" | indent;
+    curl --silent --fail "$S3_BUCKET$TARBALL";
+else
+    "Implementation already installed" | indent;
+fi
 
 cd $RUNTIME;
 tar xf $CACHE_DIR/$TARBALL;
